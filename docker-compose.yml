@@ -1,0 +1,30 @@
+version: '3'
+services:
+    miapache:
+      image: httpd
+      container_name: web
+      ports:
+        - 8181:80
+      volumes:
+        - type: volume
+          source: datosapp1
+          target: /var/lib/web
+      depends_on:
+        - datos
+    datos:
+      image: mariadb
+      container_name: bd
+      environment:
+        MYSQL_ROOT_PASSWORD: 123456
+        MYSQL_DATABASE: test
+        MYSQL_USER: pepe
+        MYSQL_PASSWORD: pepe
+      ports:
+      - 3316:3306
+      volumes:
+        - type: volume
+          source: datosapp2
+          target: /var/lib/mysql
+volumes:
+    datosapp1:
+    datosapp2:
